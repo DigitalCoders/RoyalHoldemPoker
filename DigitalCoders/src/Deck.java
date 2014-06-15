@@ -19,6 +19,9 @@ public class Deck {
 		
 		Collections.shuffle(allCards);	//Shuffling the card deck
 	}
+	public void shuffleDeck(){
+		Collections.shuffle(allCards);	//Shuffling the card deck
+	}
 	
 	public void showDeck(){
 		Iterator<Card> iterator = allCards.iterator();
