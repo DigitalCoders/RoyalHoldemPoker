@@ -23,5 +23,6 @@ public class Card {
 	
 	public void showCard(){
 		System.out.println(this.suit+" "+this.rank);
+		System.out.println("suit id "+suitID +"   rankid "+rankID);
 	}
 }
