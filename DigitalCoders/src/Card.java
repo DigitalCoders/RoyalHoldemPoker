@@ -2,6 +2,8 @@
 public class Card {
 	private String suit = ""; // Suit of the card
 	private String rank = ""; // Rank of the card
+	private int suitID;
+	private int rankID;
 
 	private static String[] suits = { "hearts", "spades", "diamonds", "clubs" }; // all suits
 																					
@@ -15,6 +17,8 @@ public class Card {
 	Card(int mySuit,int myRank) {
 		this.rank = ranks[myRank];
 		this.suit = suits[mySuit];
+		this.suitID=mySuit;
+		this.rankID=myRank+10;
 	}
 	
 	public void showCard(){
