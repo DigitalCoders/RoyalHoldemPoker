@@ -5,9 +5,9 @@ public class Card {
 	private int suitID;
 	private int rankID;
 
-	private static String[] suits = { "hearts", "spades", "diamonds", "clubs" }; // all suits
+	private static String[] suits = { "hearts ", "spades", "diamonds", "clubs" }; // all suits
 																					
-	private static String[] ranks = { "10", "Jack", "Queen", "King" , "Ace"}; // all ranks
+	private static String[] ranks = { "10 ", "Jack", "Queen", "King" , "Ace"}; // all ranks
 
 	Card(){
 		this.rank="";
