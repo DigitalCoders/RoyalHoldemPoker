@@ -14,6 +14,10 @@ public class SnglPlayGame {
 		players.add(new Player());
 		players.add(new Player());
 		players.add(new Player());	
+		Player p1=players.get(0);
+		p1.setSmlBlnd(true);
+		Player p2=players.get(1);
+		p2.setBgBlnd(true);
 		
 		Dealer dlr=new Dealer();
 		dlr.shuffleDeck();
@@ -39,6 +43,8 @@ public class SnglPlayGame {
 		}
 		System.out.println("Cards on table+++++++++++++++++++++++++++");
 		tbl.showTablCrd();
+		
 	}
+	
 	
 }

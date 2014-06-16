@@ -2,7 +2,9 @@
 public class Player {
 	Card crd1;
 	Card crd2;
-	double cash;
+	boolean smlBlnd=false;
+	boolean bgBlnd=false;
+	double cash=250;
 	
 	public void set1StCard(Card crd){
 		crd1=crd;		
@@ -14,4 +16,17 @@ public class Player {
 		crd1.showCard();
 		crd2.showCard();
 	}
+	public boolean isSmlblnd(){
+		return smlBlnd;
+	}
+	public boolean bgBlbnd(){
+		return bgBlbnd();
+	}
+	public void setSmlBlnd(boolean smlBlnd) {
+		this.smlBlnd = smlBlnd;
+	}
+	public void setBgBlnd(boolean bgBlnd) {
+		this.bgBlnd = bgBlnd;
+	}
+
 }
