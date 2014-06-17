@@ -22,10 +22,6 @@ public class SnglPlayGame {
 		Dealer dlr=new Dealer();
 		dlr.shuffleDeck();
 		
-		Table tbl=new Table();
-		for (int i = 0; i < 3; i++) {
-			tbl.SetDeck(dlr.getNextCard());
-		}
 		for (Player plr : players) {
 			plr.set1StCard(dlr.getNextCard());
 			
@@ -34,6 +30,10 @@ public class SnglPlayGame {
 		for (Player plr : players) {
 			plr.set2NdCard(dlr.getNextCard());
 			
+		}
+		Table tbl=new Table();
+		for (int i = 0; i < 3; i++) {
+			tbl.SetDeck(dlr.getNextCard());
 		}
 		System.out.println("deler done the job");
 		dlr.showDeck();
