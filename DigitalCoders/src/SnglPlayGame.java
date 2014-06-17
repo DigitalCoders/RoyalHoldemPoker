@@ -31,6 +31,7 @@ public class SnglPlayGame {
 			plr.set2NdCard(dlr.getNextCard());
 			
 		}
+		// want to implement bet
 		Table tbl=new Table();
 		for (int i = 0; i < 3; i++) {
 			tbl.SetDeck(dlr.getNextCard());
