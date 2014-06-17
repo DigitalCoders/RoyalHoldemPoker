@@ -35,14 +35,17 @@ public class SnglPlayGame {
 		for (int i = 0; i < 3; i++) {
 			tbl.SetDeck(dlr.getNextCard());
 		}
-		System.out.println("deler done the job");
-		dlr.showDeck();
-		for (Player plr : players) {
-			System.out.println("Players hand in card===================");
-			plr.shwCardPlyr();			
-		}
-		System.out.println("Cards on table+++++++++++++++++++++++++++");
-		tbl.showTablCrd();
+//		System.out.println("deler done the job");
+//		dlr.showDeck();
+//		for (Player plr : players) {
+//			System.out.println("Players hand in card===================");
+//			plr.shwCardPlyr();			
+//		}
+//		System.out.println("Cards on table+++++++++++++++++++++++++++");
+//		tbl.showTablCrd();
+		Rank r= new Rank();
+		r.chkRank(tbl.getCrdOnTbl(), players.get(0).getCrd1(),  players.get(0).getCrd2());
+		
 		
 	}
 	

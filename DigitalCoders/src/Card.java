@@ -23,7 +23,7 @@ public class Card {
 	
 	public void showCard(){
 		System.out.println("--------------------------");
-		System.out.println(this.suit+" "+this.rank);
+		System.out.println(this.rank+" of "+this.suit);
 		System.out.println("suit id "+suitID +"   rankid "+rankID+'\n');
 		
 	}
