@@ -27,4 +27,21 @@ public class Card {
 		System.out.println("suit id "+suitID +"   rankid "+rankID+'\n');
 		
 	}
+
+	public int getSuitID() {
+		return suitID;
+	}
+
+	public void setSuitID(int suitID) {
+		this.suitID = suitID;
+	}
+
+	public int getRankID() {
+		return rankID;
+	}
+
+	public void setRankID(int rankID) {
+		this.rankID = rankID;
+	}
+	
 }
