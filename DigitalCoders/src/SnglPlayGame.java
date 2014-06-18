@@ -51,8 +51,8 @@ public class SnglPlayGame {
 		while(!allSameBet){
 			blncMnyPlyrs=0;
 			for (Player plr : players) {
-				if(plr.getBet()==tbl.getHighsBet()){
-					System.out.println(plr.getName()+" has put the highst bet");
+				if(plr.getBet()==tbl.getHighsBet()||plr.isFold()){
+					System.out.println('\n'+plr.getName()+" has put the highst bet");
 					System.out.println("players hightst bet"+plr.getBet());
 					System.out.println("tables highest bet"+tbl.getHighsBet());
 					System.out.println("players hightst bet"+plr.getCash());
@@ -61,14 +61,13 @@ public class SnglPlayGame {
 					System.out.println(plr.getName()+" has not @@put the highst bet");
 					plr.actionOfPlayer(dlr,tbl);
 				}
-				System.out.println("+++++++"+blncMnyPlyrs);
 			}if(blncMnyPlyrs==players.size()){
 				allSameBet=true;
 				System.out.println("++++++++++++++++++++++++++++ all players have put highest bet");
-			}
-				
-			
+			}			
 		}
+		System.out.println('\n'+'\n'+'\n'+" highest bet"+tbl.getHighsBet());
+		System.out.println('\n'+'\n'+'\n'+" bigblind bet"+dlr.getBgBlind());;
 		// want to implement bet
 		
 		for (int i = 0; i < 3; i++) {
@@ -82,8 +81,6 @@ public class SnglPlayGame {
 //		}
 //		System.out.println("Cards on table+++++++++++++++++++++++++++");
 //		tbl.showTablCrd();
-		Rank r= new Rank();
-		r.chkRank(tbl.getCrdOnTbl(), players.get(0).getCrd1(),  players.get(0).getCrd2());
 		
 		
 	}
