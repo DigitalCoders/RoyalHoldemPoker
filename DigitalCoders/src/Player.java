@@ -23,6 +23,12 @@ public class Player {
 	}
 	
 	
+	public double getCash() {
+		return cash;
+	}
+	public void setCash(double cash) {
+		this.cash = cash;
+	}
 	public Player(String name) {
 		this.name = name;
 	}
@@ -106,7 +112,7 @@ public class Player {
 		
 		double balnce=tbl.getHighsBet()-bet;
 		cash-=balnce;
-		bet=balnce;
+		bet=tbl.getHighsBet();
 		dlr.addTobetCollctn(balnce);
 		System.out.println(name+"put the big blinds coins as his coins"+balnce);
 		System.out.println(name+" cash in hand now "+cash);		

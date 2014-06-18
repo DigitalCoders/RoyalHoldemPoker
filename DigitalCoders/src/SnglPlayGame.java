@@ -7,6 +7,7 @@ public class SnglPlayGame {
 	List<Player> players;
 	Dealer delr;
 	boolean allSameBet=false;
+	int blncMnyPlyrs=0;
 	
 	public void startGame(){
 		players=new ArrayList<Player>();
@@ -19,6 +20,7 @@ public class SnglPlayGame {
 		p1.setSmlBlnd(true);
 		Player p2=players.get(1);
 		p2.setBgBlnd(true);
+		
 		
 		Dealer dlr=new Dealer();
 		dlr.shuffleDeck();
@@ -47,16 +49,25 @@ public class SnglPlayGame {
 			
 			}
 		while(!allSameBet){
+			blncMnyPlyrs=0;
 			for (Player plr : players) {
 				if(plr.getBet()==tbl.getHighsBet()){
 					System.out.println(plr.getName()+" has put the highst bet");
 					System.out.println("players hightst bet"+plr.getBet());
 					System.out.println("tables highest bet"+tbl.getHighsBet());
+					System.out.println("players hightst bet"+plr.getCash());
+					blncMnyPlyrs++;
 				}else{
 					System.out.println(plr.getName()+" has not @@put the highst bet");
 					plr.actionOfPlayer(dlr,tbl);
 				}
-			}	allSameBet=true;
+				System.out.println("+++++++"+blncMnyPlyrs);
+			}if(blncMnyPlyrs==players.size()){
+				allSameBet=true;
+				System.out.println("++++++++++++++++++++++++++++ all players have put highest bet");
+			}
+				
+			
 		}
 		// want to implement bet
 		
