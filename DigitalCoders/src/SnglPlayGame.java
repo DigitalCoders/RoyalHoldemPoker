@@ -6,14 +6,15 @@ public class SnglPlayGame {
 
 	List<Player> players;
 	Dealer delr;
+	boolean allSameBet=false;
 	
 	public void startGame(){
 		players=new ArrayList<Player>();
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());
-		players.add(new Player());	
+		players.add(new Player("player 1"));
+		players.add(new Player("player 2"));
+		players.add(new Player("player 3"));
+		players.add(new Player("player 4"));
+		players.add(new Player("player 5"));	
 		Player p1=players.get(0);
 		p1.setSmlBlnd(true);
 		Player p2=players.get(1);
@@ -21,7 +22,7 @@ public class SnglPlayGame {
 		
 		Dealer dlr=new Dealer();
 		dlr.shuffleDeck();
-		
+		Table tbl=new Table();
 		for (Player plr : players) {
 			plr.set1StCard(dlr.getNextCard());
 			
@@ -31,8 +32,23 @@ public class SnglPlayGame {
 			plr.set2NdCard(dlr.getNextCard());
 			
 		}
+		for (Player plr : players) {
+			plr.set2NdCard(dlr.getNextCard());
+			
+		}	
+			for (Player plr : players) {
+				if (plr.isSmlblnd()) {
+					plr.postSmlblnd(dlr);
+				}else if (plr.isBgBlnd()) {
+					plr.postBglblnd(dlr,tbl);
+				}else{
+					plr.actionOfPlayer(dlr,tbl);
+				}
+			
+			}
+		
 		// want to implement bet
-		Table tbl=new Table();
+		
 		for (int i = 0; i < 3; i++) {
 			tbl.SetDeck(dlr.getNextCard());
 		}
