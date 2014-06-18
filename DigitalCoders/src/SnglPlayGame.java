@@ -46,7 +46,18 @@ public class SnglPlayGame {
 				}
 			
 			}
-		
+		while(!allSameBet){
+			for (Player plr : players) {
+				if(plr.getBet()==tbl.getHighsBet()){
+					System.out.println(plr.getName()+" has put the highst bet");
+					System.out.println("players hightst bet"+plr.getBet());
+					System.out.println("tables highest bet"+tbl.getHighsBet());
+				}else{
+					System.out.println(plr.getName()+" has not @@put the highst bet");
+					plr.actionOfPlayer(dlr,tbl);
+				}
+			}	allSameBet=true;
+		}
 		// want to implement bet
 		
 		for (int i = 0; i < 3; i++) {

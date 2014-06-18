@@ -12,6 +12,9 @@ public class Player {
 	int rankOfHand;
 	String name;
 	
+	public double getBet() {
+		return bet;
+	}
 	public boolean isFold() {
 		return fold;
 	}
@@ -81,7 +84,7 @@ public class Player {
 		String choice=InputHelper.getInput("what is your choice "+name);
 		switch(Integer.parseInt(choice)) {
 		case 1:
-				call(dlr);
+				call(dlr,tbl);
 			break;
 		case 2:
 			raise(dlr,tbl);
@@ -99,11 +102,13 @@ public class Player {
 		this.fold=true;
 		System.out.println(name+" fold the cards");
 	}
-	private void call(Dealer dlr){
-		cash-=dlr.getBgBlind();
-		bet=dlr.getBgBlind();
-		dlr.addTobetCollctn(dlr.getBgBlind());
-		System.out.println(name+"put the big blinds coins as his coins"+dlr.getBgBlind());
+	private void call(Dealer dlr,Table tbl){
+		
+		double balnce=tbl.getHighsBet()-bet;
+		cash-=balnce;
+		bet=balnce;
+		dlr.addTobetCollctn(balnce);
+		System.out.println(name+"put the big blinds coins as his coins"+balnce);
 		System.out.println(name+" cash in hand now "+cash);		
 	}
 	private void raise(Dealer dlr,Table tbl){
@@ -129,6 +134,7 @@ public class Player {
 	public void postSmlblnd(Dealer dlr){
 		double smlBlndBet=10;
 		cash-=smlBlndBet;
+		bet=smlBlndBet;
 		dlr.addTobetCollctn(smlBlndBet);
 		System.out.println(name+"put the small blind");
 		System.out.println("cash in hand now "+cash);
@@ -137,6 +143,7 @@ public class Player {
 	public void postBglblnd(Dealer dlr,Table tbl){
 		double bgBlndBet=20;
 		cash-=bgBlndBet;
+		bet=bgBlndBet;
 		tbl.highsBet=bgBlndBet;
 		dlr.addTobetCollctn(bgBlndBet);
 		dlr.setBgBlind(bgBlndBet);
