@@ -6,7 +6,7 @@ public class SnglPlayGame {
 
 	List<Player> players;
 	Dealer delr;
-	boolean allSameBet=false;
+	boolean allSameBet=false;	
 	int blncMnyPlyrs=0;
 	int plyrInGame=0;
 	int foldPlyrs=0;
@@ -54,6 +54,7 @@ public class SnglPlayGame {
 		tbl.showTablCrd();	
 		System.out.println("currentlu players in the game "+plyrInGame);
 		System.out.println("players folden"+foldPlyrs);
+		tbl.setHighsBet(0);
 		
 		
 //		dlr.showDeck();
@@ -101,6 +102,7 @@ public class SnglPlayGame {
 		}
 		blncMnyPlyrs=0;		
 	}
+	
 	
 	
 }
