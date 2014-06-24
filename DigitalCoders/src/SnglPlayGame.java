@@ -26,8 +26,7 @@ public class SnglPlayGame {
 		dlr.shuffleDeck();
 		Table tbl=new Table();
 		for (Player plr : players) {
-			plr.set1StCard(dlr.getNextCard());
-			
+			plr.set1StCard(dlr.getNextCard());			
 		}
 		
 		for (Player plr : players) {
@@ -35,10 +34,6 @@ public class SnglPlayGame {
 			
 		}
 		for (Player plr : players) {
-			plr.set2NdCard(dlr.getNextCard());
-			
-		}	
-			for (Player plr : players) {
 				if (plr.isSmlblnd()) {
 					plr.postSmlblnd(dlr);
 				}else if (plr.isBgBlnd()) {
@@ -48,10 +43,36 @@ public class SnglPlayGame {
 				}
 			
 			}
+		betting(tbl, dlr);
+		
+		System.out.println('\n'+'\n'+'\n'+" highest bet"+tbl.getHighsBet());
+		System.out.println('\n'+'\n'+'\n'+" bigblind bet"+dlr.getBgBlind());;
+		
+		for (int i = 0; i < 3; i++) {
+			tbl.SetDeck(dlr.getNextCard());
+		}
+		System.out.println("deler done the job put 3 cards to table");
+		tbl.showTablCrd();
+		
+//		dlr.showDeck();
+//		for (Player plr : players) {
+//			System.out.println("Players hand in card===================");
+//			plr.shwCardPlyr();			
+//		}
+//		System.out.println("Cards on table+++++++++++++++++++++++++++");
+//		tbl.showTablCrd();
+		
+		
+	}
+	private void betting(Table tbl,Dealer dlr){
 		while(!allSameBet){
 			blncMnyPlyrs=0;
 			for (Player plr : players) {
 				if(plr.getBet()==tbl.getHighsBet()||plr.isFold()){
+					if(plr.isFold()){
+						System.out.println('\n'+plr.getName()+" has fold");
+						System.out.println("================================");
+					}
 					System.out.println('\n'+plr.getName()+" has put the highst bet");
 					System.out.println("players hightst bet"+plr.getBet());
 					System.out.println("tables highest bet"+tbl.getHighsBet());
@@ -66,23 +87,6 @@ public class SnglPlayGame {
 				System.out.println("++++++++++++++++++++++++++++ all players have put highest bet");
 			}			
 		}
-		System.out.println('\n'+'\n'+'\n'+" highest bet"+tbl.getHighsBet());
-		System.out.println('\n'+'\n'+'\n'+" bigblind bet"+dlr.getBgBlind());;
-		// want to implement bet
-		
-		for (int i = 0; i < 3; i++) {
-			tbl.SetDeck(dlr.getNextCard());
-		}
-//		System.out.println("deler done the job");
-//		dlr.showDeck();
-//		for (Player plr : players) {
-//			System.out.println("Players hand in card===================");
-//			plr.shwCardPlyr();			
-//		}
-//		System.out.println("Cards on table+++++++++++++++++++++++++++");
-//		tbl.showTablCrd();
-		
-		
 	}
 	
 	
