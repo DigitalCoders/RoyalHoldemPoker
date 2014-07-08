@@ -10,37 +10,42 @@ public class SnglPlayGame {
 	int blncMnyPlyrs=0;
 	int plyrInGame=0;
 	int foldPlyrs=0;
+	static int pntOfSmlbl; 		//reference to the small blind to the player on arraylist
 	
 	public void startGame(){
-		setPlayers();		//create players and set small blind and big blind
+		setPlayers();		//create players and set small blind and big blind on first 2
 		
-		Dealer dlr=new Dealer();
-		dlr.shuffleDeck();
-		Table tbl=new Table();
-		setCards(tbl, dlr, players);
+		Dealer dlr=new Dealer();	//create a dealer and generate cards
+		dlr.shuffleDeck();			//shuffle the cards
+		Table tbl=new Table();		//create a table
+		setCards(tbl, dlr, players);  	//initialaise first 3 cards to table
 		
-		putBlinds(dlr, tbl);
+//		putBlinds(dlr, tbl);
 //		betting(tbl, dlr);
 		
 		System.out.println('\n'+'\n'+'\n'+" highest bet"+tbl.getHighsBet());
 		System.out.println('\n'+'\n'+'\n'+" bigblind bet"+dlr.getBgBlind());;
 		
-		for (int i = 0; i < 3; i++) {
-			tbl.SetDeck(dlr.getNextCard());
-		}
+//		for (int i = 0; i < 3; i++) {
+//			tbl.SetDeck(dlr.getNextCard());
+//		}
 		System.out.println("deler done the job put 3 cards to table");
-		tbl.showTablCrd();
+//		tbl.showTablCrd();
 		tbl.SetDeck(dlr.getNextCard());
 		System.out.println("dealer put the next car also now start betting again");
-		tbl.showTablCrd();	
+//		tbl.showTablCrd();	
 		System.out.println("currentlu players in the game "+plyrInGame);
 		System.out.println("players folden"+foldPlyrs);
 		tbl.setHighsBet(0);
 		
 //		crclRound(players);	
 		
+		setSmlNBgblCrcl(players);
 		
-		
+		for (Player py : players) {
+			System.out.println("test");
+			py.toString();
+		}
 //		dlr.showDeck();
 //		for (Player plr : players) {
 //			System.out.println("Players hand in card===================");
@@ -93,9 +98,10 @@ public class SnglPlayGame {
 		players.add(new Player("player 3"));
 		players.add(new Player("player 4"));
 		players.add(new Player("player 5"));	
-		Player p1=players.get(3);
+		Player p1=players.get(0);
+		pntOfSmlbl=0;
 		p1.setSmlBlnd(true);
-		Player p2=players.get(4);
+		Player p2=players.get(1);
 		p2.setBgBlnd(true);		
 		plyrInGame=players.size();
 	}
@@ -135,6 +141,22 @@ public class SnglPlayGame {
 		blncMnyPlyrs=0;		
 	}
 	
-	
+	private static void setSmlNBgblCrcl(List<Player> plyr) {
+		for (Player player : plyr) {
+			int size=plyr.size();
+			if (plyr.indexOf(player)==pntOfSmlbl%size) {
+				System.out.println("the index of the smalllbbbb=="+pntOfSmlbl%size);
+				player.setSmlBlnd(false);
+				player=plyr.get((pntOfSmlbl+1)%size);
+				player.setBgBlnd(false);
+				player.setSmlBlnd(true);
+				player=plyr.get((pntOfSmlbl+2)%size);
+				System.out.println("the index of the bibBline=="+(pntOfSmlbl+2)%size);
+				player.setBgBlnd(true);
+				
+			}			
+		}
+		pntOfSmlbl++;
+	}
 	
 }
