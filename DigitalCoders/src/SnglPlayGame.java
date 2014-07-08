@@ -12,34 +12,15 @@ public class SnglPlayGame {
 	int foldPlyrs=0;
 	
 	public void startGame(){
-		players=new ArrayList<Player>();
-		players.add(new Player("player 1"));
-		players.add(new Player("player 2"));
-		players.add(new Player("player 3"));
-		players.add(new Player("player 4"));
-		players.add(new Player("player 5"));	
-		Player p1=players.get(0);
-		p1.setSmlBlnd(true);
-		Player p2=players.get(1);
-		p2.setBgBlnd(true);
-		
-		plyrInGame=players.size();
+		setPlayers();		//create players and set small blind and big blind
 		
 		Dealer dlr=new Dealer();
 		dlr.shuffleDeck();
 		Table tbl=new Table();
 		setCards(tbl, dlr, players);
-		for (Player plr : players) {
-				if (plr.isSmlblnd()) {
-					plr.postSmlblnd(dlr);
-				}else if (plr.isBgBlnd()) {
-					plr.postBglblnd(dlr,tbl);
-				}else{
-					plr.actionOfPlayer(dlr,tbl);
-				}
-			
-			}
-		betting(tbl, dlr);
+		
+		putBlinds(dlr, tbl);
+//		betting(tbl, dlr);
 		
 		System.out.println('\n'+'\n'+'\n'+" highest bet"+tbl.getHighsBet());
 		System.out.println('\n'+'\n'+'\n'+" bigblind bet"+dlr.getBgBlind());;
@@ -56,6 +37,9 @@ public class SnglPlayGame {
 		System.out.println("players folden"+foldPlyrs);
 		tbl.setHighsBet(0);
 		
+//		crclRound(players);	
+		
+		
 		
 //		dlr.showDeck();
 //		for (Player plr : players) {
@@ -66,6 +50,54 @@ public class SnglPlayGame {
 //		tbl.showTablCrd();
 		
 		
+	}
+	private void crclRound(List<Player> plyr){
+		boolean found=false;
+		boolean round=false;
+		for (int i = 0; i < plyr.size(); i++) {
+			
+			if(plyr.get(i).isSmlblnd()){
+				found=true;
+				if(round){
+					break;
+				}
+				round=true;
+				System.out.println("game begine ------------");
+				System.out.println(found);
+			}
+			if(found==true){
+				plyr.get(i).toString();
+				System.out.println(i);
+			}
+			if(i==plyr.size()-1){
+				i=-1 ;
+			}
+		}
+	}
+	private void putBlinds(Dealer dlr, Table tbl) {
+		for (Player plr : players) {
+				if (plr.isSmlblnd()) {
+					plr.postSmlblnd(dlr);
+				}else if (plr.isBgBlnd()) {
+					plr.postBglblnd(dlr,tbl);
+				}else{
+					plr.actionOfPlayer(dlr,tbl);
+				}
+			
+			}
+	}
+	private void setPlayers() {
+		players=new ArrayList<Player>();
+		players.add(new Player("player 1"));
+		players.add(new Player("player 2"));
+		players.add(new Player("player 3"));
+		players.add(new Player("player 4"));
+		players.add(new Player("player 5"));	
+		Player p1=players.get(3);
+		p1.setSmlBlnd(true);
+		Player p2=players.get(4);
+		p2.setBgBlnd(true);		
+		plyrInGame=players.size();
 	}
 	private void setCards(Table tbl,Dealer dlr,List<Player> players){
 		for (Player plr : players) {
