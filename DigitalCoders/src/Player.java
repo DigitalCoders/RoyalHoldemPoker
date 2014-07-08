@@ -7,12 +7,17 @@ public class Player {
 	boolean smlBlnd=false;
 	boolean bgBlnd=false;
 	boolean fold=false;
-	boolean frstrnd=false;
 	double bet=0;
 	double cash=250;
 	int rankOfHand;
 	String name;
 	
+	public boolean isSmlBlnd() {
+		return smlBlnd;
+	}
+	public void setBet(double bet) {
+		this.bet = bet;
+	}
 	public double getBet() {
 		return bet;
 	}
@@ -32,7 +37,6 @@ public class Player {
 	}
 	public Player(String name) {
 		this.name = name;
-		this.frstrnd=true;
 	}
 	public String getName() {
 		return name;
@@ -85,7 +89,6 @@ public class Player {
 		this.rankOfHand = rankOfHand;
 	}
 	public void actionOfPlayer(Dealer dlr,Table tbl){
-		if(frstrnd){
 		System.out.println('\n'+"player  "+name);
 		System.out.println("1 for call-put bigblind");
 		System.out.println("2 for raise-put higr than bigblnd");
@@ -106,31 +109,53 @@ public class Player {
 					System.out.println("wrong input please reenter");
 					break;
 				}
-		}
-			else if(!tbl.isPutBet()){
-				System.out.println('\n'+"player  "+name);
-				System.out.println("1 for Check-pass the hand");
-				System.out.println("2 for Bid -put a bid");
-				System.out.println("3 for fold -exit the curnnt round");
-				String choice=InputHelper.getInput("what is your choice "+name);
+	}
+	public void actionOfPlayertwo(Dealer dlr,Table tbl){
+		System.out.println('\n'+"player  "+name);
+		if(tbl.isCheck()){
+			System.out.println("1 for call-put higher than bet");
+			System.out.println("2 for raise-put higr than bet");
+			System.out.println("3 for fold -exit the curnnt round");
+			String choice=InputHelper.getInput("what is your choice "+name);
 				switch(Integer.parseInt(choice)) {
-				case 1:
-					
-					break;
-				case 2:
-					raise(dlr,tbl);
-					break;
-				case 3:
-					fold(dlr);
-					break;
+					case 1:
+						call(dlr,tbl);
+						break;
+					case 2:
+						raise(dlr,tbl);
+						break;
+					case 3:
+						fold(dlr);
+						break;
 			
-				default:
-					System.out.println("wrong input please reenter");
-					break;
+					default:
+						System.out.println("wrong input please reenter");
+						break;
+					}
+			}
+		else{
+			System.out.println("1 for check pass the chance");
+			System.out.println("2 for bid");
+			System.out.println("3 for fold -exit the curnnt round");
+			String choice=InputHelper.getInput("what is your choice "+name);
+				switch(Integer.parseInt(choice)) {
+					case 1:
+						break;
+					case 2:
+						bid(dlr,tbl);
+						tbl.setCheck(true);
+						break;
+					case 3:
+						fold(dlr);
+						break;
+			
+					default:
+						System.out.println("wrong input please reenter");
+						break;
+					}
 			}
 		}
-		frstrnd=false;
-	}
+	
 	private void fold(Dealer dlr) {
 		this.fold=true;
 		System.out.println(name+" fold the cards");
@@ -156,9 +181,10 @@ public class Player {
 			else
 				System.out.println("please enter higher amount than big blind");
 		}
-		cash-=input;
+		cash-=(input-bet);
 		bet=input;
 		tbl.setHighsBet(input);
+		dlr.setBgBlind(input);
 		dlr.addTobetCollctn(input);
 		System.out.println(name+"raise the bet");
 		System.out.println(name+" cash in hand now "+cash);		
@@ -170,7 +196,7 @@ public class Player {
 		bet=smlBlndBet;
 		dlr.addTobetCollctn(smlBlndBet);
 		System.out.println(name+"put the small blind");
-		System.out.println("cash in hand now "+cash);
+		System.out.println("cash in hand now "+cash+'\n');
 		
 	}
 	public void postBglblnd(Dealer dlr,Table tbl){
@@ -181,9 +207,21 @@ public class Player {
 		dlr.addTobetCollctn(bgBlndBet);
 		dlr.setBgBlind(bgBlndBet);
 		System.out.println(name+"put the big blind");
+		System.out.println(name+" cash in hand now "+cash+'\n');		
+	}
+	private void bid(Dealer dlr,Table tbl){
+		double input=0;
+		
+			String inpt=InputHelper.getInput("enter the bet  ");
+				input=Double.parseDouble(inpt);
+				cash-=input;
+		bet=input;
+		tbl.setHighsBet(input);
+		dlr.setBgBlind(input);
+		dlr.addTobetCollctn(input);
+		System.out.println(name+"start the bet bet");
 		System.out.println(name+" cash in hand now "+cash);		
 	}
-	
 	
 
 }
