@@ -6,8 +6,14 @@ public class Table {
 	List<Card> crdOnTbl;		//for table cards 5
 	double highsBet;
 	boolean putBet=false;
+	boolean check=false;
 	
-	
+	public boolean isCheck() {
+		return check;
+	}
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
 	public boolean isPutBet() {
 		return putBet;
 	}
@@ -26,6 +32,7 @@ public class Table {
 		crdOnTbl=new ArrayList<Card>();
 		highsBet=0;
 		putBet=false;
+		check=false;
 	}
 	public List<Card> getCrdOnTbl() {
 		return crdOnTbl;
