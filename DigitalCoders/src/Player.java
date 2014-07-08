@@ -94,7 +94,7 @@ public class Player {
 		System.out.println("2 for raise-put higr than bigblnd");
 		System.out.println("3 for fold -exit the curnnt round");
 		String choice=InputHelper.getInput("what is your choice "+name);
-			switch(Integer.parseInt(choice)) {
+			switch(Integer.parseInt(choice)) {		//select the operations
 				case 1:
 					call(dlr,tbl);
 					break;
