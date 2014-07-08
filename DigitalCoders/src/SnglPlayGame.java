@@ -20,18 +20,9 @@ public class SnglPlayGame {
 		Table tbl=new Table();		//create a table
 		setCards(tbl, dlr, players);  	//initialaise first 3 cards to table
 		
-//		putBlinds(dlr, tbl);
-//		betting(tbl, dlr);
-		
-		System.out.println('\n'+'\n'+'\n'+" highest bet"+tbl.getHighsBet());
-		System.out.println('\n'+'\n'+'\n'+" bigblind bet"+dlr.getBgBlind());;
-		
-//		for (int i = 0; i < 3; i++) {
-//			tbl.SetDeck(dlr.getNextCard());
-//		}
-		System.out.println("deler done the job put 3 cards to table");
-//		tbl.showTablCrd();
-		tbl.SetDeck(dlr.getNextCard());
+		putBlinds(dlr, tbl);		//put small blinds and big blinds and start betting 1st round
+		betting(tbl, dlr);			
+//		tbl.SetDeck(dlr.getNextCard());		//deler put another card to table now 4 cards on table
 		System.out.println("dealer put the next car also now start betting again");
 //		tbl.showTablCrd();	
 		System.out.println("currentlu players in the game "+plyrInGame);
