@@ -59,7 +59,7 @@ public class Dealer {
 	}
 	public void addTobetCollctn(double bet){
 		betCollection+=bet;
-		System.out.println("current money in hand of dealer"+betCollection);
+		System.out.println("	current money in hand of dealer"+betCollection);
 	}
 
 }
