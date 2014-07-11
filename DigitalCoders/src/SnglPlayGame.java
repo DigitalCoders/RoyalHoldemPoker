@@ -25,7 +25,7 @@ public class SnglPlayGame {
 		System.out.println("===================== PreFlop Round =====================");			
 		putBlinds(dlr, tbl); 			//1st time small and big blinds put cash to table 
 		InputHelper.getInput("player 1 and 2 put the blinds");
-		firstRound(players, tbl, dlr);	//after put all players are start betting or fold		
+		betting(players, tbl, dlr);	//after put all players are start betting or fold		
 		
 		showDetail(tbl, dlr, players);
 		System.out.println("===================== Flop Round =====================");
@@ -96,6 +96,8 @@ public class SnglPlayGame {
 					plr.postSmlblnd(dlr);		//players put the small and big blinds to table
 				}else if (plr.isBgBlnd()) {
 					plr.postBglblnd(dlr,tbl);
+					tbl.setPntOfRaise(players.indexOf(plr));
+					tbl.setCheck(true);
 				}			
 			}
 	}
