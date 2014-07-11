@@ -16,6 +16,40 @@ public class Rank {
 		}
 		return rank;
 	}
+	private boolean isFlush(){
+		int sameSuit=0;
+		
+		for (int i = 0; i < crds.size()-1; i++) {
+			if(crds.get(i).getSuitID()==crds.get(i+1).getSuitID()||cmnSID==crds.get(i+1).getSuitID()){
+				sameSuit++;
+				cmnSID=crds.get(i).getSuitID();
+				System.out.println("same cardset--------------------++++++++++++");
+				crds.get(i).showCard();
+				crds.get(i+1).showCard();
+			}
+		}
+		if(sameSuit>=4){
+			return true;
+		}
+		return false;
+	}
+	private boolean isRoyalFlush(){
+		List<Card> rylSet=new ArrayList<Card>();
+		if(isFlush()){
+			System.out.println("come to royal flush check###########");
+			for (Card card : crds) {
+				if(card.getSuitID()==cmnSID){
+					rylSet.add(card);
+					if(card.getRankID()==14){
+						return true;
+					}
+				}
+			}
+			
+		}		
+		return false;
+		
+	}
 	private boolean isFourOfKnd(){
 		int cnt=0,rID=0,sID=0;
 		boolean first=true;
