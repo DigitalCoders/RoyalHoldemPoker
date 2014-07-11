@@ -21,41 +21,43 @@ public class SnglPlayGame {
 		dlr.shuffleDeck();			//shuffle the cards
 		Table tbl=new Table();		//create a table
 		setCards( dlr, players);  	//initialaise 2 crds by to players
-		
 		System.out.println("===================== PreFlop Round =====================");			
 		putBlinds(dlr, tbl); 			//1st time small and big blinds put cash to table 
-		InputHelper.getInput("player 1 and 2 put the blinds");
-		betting(players, tbl, dlr);	//after put all players are start betting or fold		
-		
-		showDetail(tbl, dlr, players);
-		System.out.println("===================== Flop Round =====================");
-		InputHelper.getInput("start thr flop round");
+//		InputHelper.getInput("player 1 and 2 put the blinds");
+//		betting(players, tbl, dlr);	//after put all players are start betting or fold		
+//		
+//		showDetail(tbl, dlr, players);
+//		System.out.println("===================== Flop Round =====================");
+//		InputHelper.getInput("start thr flop round");
 		tbl.SetDeck(dlr.getNextCard());
 		tbl.SetDeck(dlr.getNextCard());
 		tbl.SetDeck(dlr.getNextCard());
-		tbl.showTablCrd();
-		InputHelper.getInput("start betting");
-		resetfrNewRnd(dlr, tbl, players);
-		betting(players, tbl, dlr);		
-		InputHelper.getInput("betting finish");
+//		tbl.showTablCrd();
+//		InputHelper.getInput("start betting");
+//		resetfrNewRnd(dlr, tbl, players);
+//		betting(players, tbl, dlr);		
+//		InputHelper.getInput("betting finish");
 		tbl.SetDeck(dlr.getNextCard());    		//4th card
-		showDetail(tbl, dlr, players);
-		
-		System.out.println("===================== Turn Round =====================");
-		InputHelper.getInput("start turn round");
-		resetfrNewRnd(dlr, tbl, players);
-		betting(players, tbl, dlr);		
+//		showDetail(tbl, dlr, players);
+//		
+//		System.out.println("===================== Turn Round =====================");
+//		InputHelper.getInput("start turn round");
+//		resetfrNewRnd(dlr, tbl, players);
+//		betting(players, tbl, dlr);		
 		tbl.SetDeck(dlr.getNextCard());			//5th card
-		showDetail(tbl, dlr, players);
-		InputHelper.getInput("turn round finish and the cards on table");
-		tbl.showTablCrd();
-		InputHelper.getInput("start the river round");
-		System.out.println("===================== River Round =====================");
-		resetfrNewRnd(dlr, tbl, players);
-		betting(players, tbl, dlr);		
-		InputHelper.getInput("river round finish ");
-		showDetail(tbl, dlr, players);
+//		showDetail(tbl, dlr, players);
+//		InputHelper.getInput("turn round finish and the cards on table");
+//		tbl.showTablCrd();
+//		InputHelper.getInput("start the river round");
+//		System.out.println("===================== River Round =====================");
+//		resetfrNewRnd(dlr, tbl, players);
+//		betting(players, tbl, dlr);		
+//		InputHelper.getInput("river round finish ");
+//		showDetail(tbl, dlr, players);
+		InputHelper.getInput('\n'+"river round finish do you want to check the ranks");
+		checkRanks(players, tbl, dlr);
 	}
+	
 	private void resetfrNewRnd(Dealer dlr, Table tbl,List<Player> plyr){
 		dlr.setBgBlind(0);
 		tbl.setHighsBet(0);
@@ -280,5 +282,30 @@ public class SnglPlayGame {
 			}
 		}
 		tbl.setCheck(false);
+	}
+	private void checkRanks(List<Player> plyr,Table tbl,Dealer dlr){
+		int rank=0;
+		Rank rnk=new Rank();
+		for (Player player : plyr) {
+			InputHelper.getInput('\n'+"want to go to next player to check rank");
+			if(player.isFold()){
+				player.setRankOfHand(0);
+			}else{
+				rank=rnk.chkRank(tbl.getCrdOnTbl(), player);
+				System.out.println("the rank is :::::::::::::::::::"+rank);
+				player.setRankOfHand(rank);
+			}
+		}
+		for (Player player : plyr) {
+			System.out.println(player.getName());
+			System.out.println("has ran of hand of :"+player.getRankOfHand());
+		}
+	}
+private void setcrdstest(List<Player> players2, Table tbl, Dealer dlr2) {
+		tbl.SetDeck(new Card(0, 1));
+		tbl.SetDeck(new Card(1, 1));
+		tbl.SetDeck(new Card(2, 2));
+		tbl.SetDeck(new Card(3, 4));
+		tbl.SetDeck(new Card(1, 1));
 	}
 }

@@ -5,17 +5,38 @@ import java.util.List;
 public class Rank {
 	List<Card> crds;
 	int cmnSID=24;
-	public int chkRank(List<Card> tblcrds,Card crd1,Card crd2){
-		int rank=0;
-		ArrayList<Card> cardSet=(ArrayList<Card>) tblcrds;	// add all the cards (table cards and players card) to list
-		cardSet.add(crd1);
-		cardSet.add(crd2);
-		
-		for (Card card : cardSet) {		//to print outh the cards
-			card.showCard();
-			
+	public int chkRank(List<Card> tblcrds,Player plr){
+		crds=new ArrayList<Card>();
+		for (Card card : tblcrds) {
+			crds.add(card);
 		}
-		return rank;
+		crds.add(plr.getCrd1());
+		crds.add(plr.getCrd2());
+		sort(crds);
+		sort(crds);
+		prnt(crds);
+		
+		if(isRoyalFlush()){	
+			crds.clear();
+			return 100;
+		}else if (isFourOfKnd()) {
+			crds.clear();
+			return 80;
+		}else if (isFullHouse()) {
+			crds.clear();
+			return 60;
+		}else if (isStraight()) {
+			crds.clear();
+			return 40;
+		}else if (isThreeOfkind()) {
+			crds.clear();
+			return 20;
+		}else if (isTwoPair()) {
+			crds.clear();
+			return 10;
+		}else
+			crds.clear();
+		return 0;
 	}
 	private boolean isFlush(){
 		int sameSuit=0;
@@ -42,6 +63,7 @@ public class Rank {
 				if(card.getSuitID()==cmnSID){
 					rylSet.add(card);
 					if(card.getRankID()==14){
+						System.out.println("Royal Flush matched*********************************");
 						return true;
 					}
 				}
@@ -69,6 +91,7 @@ public class Rank {
 					first=false;
 				}
 				if(cnt==3){
+					System.out.println("Four of kind matched*********************************");
 					return true;
 				}
 				
@@ -94,6 +117,7 @@ public class Rank {
 			if(crds.get(i).getRankID()==crds.get(i+1).getRankID()){
 				System.out.println("matched "+crds.get(i+1).getRankID());
 				if(rID!=crds.get(i).getRankID()&& i>1){
+					System.out.println("two pair matched*********************************");
 					return true;				
 				}
 				rID=crds.get(i).getRankID();
@@ -119,6 +143,7 @@ public class Rank {
 					sID=crds.get(i).getRankID();
 				}
 				if(cnt==2){
+					System.out.println("three of kind matched*********************************");
 					return true;
 				}
 				
@@ -132,6 +157,7 @@ public class Rank {
 			if(crds.get(i).getRankID()<crds.get(i+1).getRankID()){
 				cnt++;
 				if(cnt==4){
+					System.out.println("straigth matched*********************************");
 					return true;
 				}
 			}
@@ -162,6 +188,7 @@ public class Rank {
 			}
 		}
 			if(thrOfKnd&&onePair){
+				System.out.println("Full house matched*********************************");
 				return true;
 			}
 			return false;
@@ -172,6 +199,7 @@ public class Rank {
 		for (Card card : crds) {
 			card.showCard();
 		}
+		System.out.println('\n'+"==================cards on ranker==================");
 	}
 	private void sort(List<Card> crds){
 		Card temp;
