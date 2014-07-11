@@ -4,14 +4,21 @@
 public class Player {
 	Card crd1;
 	Card crd2;
-	boolean smlBlnd=false;
-	boolean bgBlnd=false;
-	boolean fold=false;
-	double bet=0;
-	double cash=250;
-	int rankOfHand;
-	String name;
+	private boolean smlBlnd=false;
+	private boolean bgBlnd=false;
+	private boolean fold=false;
+	private boolean allIn=false;
+	private double bet=0;
+	private double cash=250;
+	private int rankOfHand;
+	private String name;
 	
+	public boolean isAllIn() {
+		return allIn;
+	}
+	public void setAllIn(boolean allIn) {
+		this.allIn = allIn;
+	}
 	public boolean isSmlBlnd() {
 		return smlBlnd;
 	}
@@ -26,9 +33,7 @@ public class Player {
 	}
 	public void setFold(boolean fold) {
 		this.fold = fold;
-	}
-	
-	
+	}	
 	public double getCash() {
 		return cash;
 	}
@@ -50,7 +55,6 @@ public class Player {
 	public void set2NdCard(Card crd){
 		crd2=crd;		
 	}
-	
 	public Card getCrd1() {
 		return crd1;
 	}
@@ -90,9 +94,15 @@ public class Player {
 	}
 	public void actionOfPlayer(Dealer dlr,Table tbl,int index){
 		System.out.println('\n'+"player  "+name);
-		System.out.println("1 for call-put bigblind");
-		System.out.println("2 for raise-put higr than bigblnd");
-		System.out.println("3 for fold -exit the curnnt round");
+		if(tbl.getHighsBet()>cash){
+			System.out.println("you have only "+cash);
+			System.out.println("4 for all in-put the all mony in hand to table");
+			System.out.println("3 for fold -exit the curnnt round");
+		}else{
+			System.out.println("1 for call-put higher than bet");
+			System.out.println("2 for raise-put higr than bet");
+			System.out.println("3 for fold -exit the curnnt round");
+		}
 		String choice=InputHelper.getInput("what is your choice "+name);
 			switch(Integer.parseInt(choice)) {		//select the operations
 				case 1:
@@ -104,7 +114,9 @@ public class Player {
 				case 3:
 					fold(dlr);
 					break;
-			
+				case 4:
+					allIN(dlr);
+					break;
 				default:
 					System.out.println("wrong input please reenter");
 					break;
@@ -113,19 +125,38 @@ public class Player {
 	public void actionOfPlayertwo(Dealer dlr,Table tbl,int index){
 		System.out.println('\n'+"player  "+name);
 		if(tbl.isCheck()){
-			System.out.println("1 for call-put higher than bet");
-			System.out.println("2 for raise-put higr than bet");
-			System.out.println("3 for fold -exit the curnnt round");
+			if(tbl.getHighsBet()>cash){
+				System.out.println("you have only "+cash);
+				System.out.println("4 for all in-put the all mony in hand to table");
+				System.out.println("3 for fold -exit the curnnt round");
+			}else{
+				System.out.println("1 for call-put higher than bet");
+				System.out.println("2 for raise-put higr than bet");
+				System.out.println("3 for fold -exit the curnnt round");
+			}
 			String choice=InputHelper.getInput("what is your choice "+name);
 				switch(Integer.parseInt(choice)) {
 					case 1:
-						call(dlr,tbl);
+						if(cash==0){
+							System.out.println("sorry you dont have money to play the game");
+							fold(dlr);
+						}else{
+							call(dlr,tbl);
+						}
 						break;
 					case 2:
+						if(cash==0){
+							System.out.println("sorry you dont have money to play the game");
+							fold(dlr);
+						}else{
 						raise(dlr,tbl,index);
+						}
 						break;
 					case 3:
 						fold(dlr);
+						break;
+					case 4:
+						allIN(dlr);
 						break;
 			
 					default:
@@ -135,19 +166,32 @@ public class Player {
 			}
 		else{
 			System.out.println("1 for check pass the chance");
-			System.out.println("2 for bid");
-			System.out.println("3 for fold -exit the curnnt round");
+			if(tbl.getHighsBet()>cash){
+				System.out.println("4 for all in-put the all mony in hand to table");
+				System.out.println("3 for fold -exit the curnnt round");
+			}else{
+				System.out.println("2 for bid");
+				System.out.println("3 for fold -exit the curnnt round");
+			}
 			String choice=InputHelper.getInput("what is your choice "+name);
 				switch(Integer.parseInt(choice)) {
 					case 1:
 						break;
 					case 2:
-						bid(dlr,tbl);
-						tbl.setCheck(true);
-						tbl.setPntOfRaise(index);
+						if(cash==0){
+							System.out.println("sorry you dont have money to play the game");
+							fold(dlr);
+						}else{
+							bid(dlr,tbl);
+							tbl.setCheck(true);
+							tbl.setPntOfRaise(index);
+						}
 						break;
 					case 3:
 						fold(dlr);
+						break;
+					case 4:
+						allIN(dlr);
 						break;
 			
 					default:
@@ -156,6 +200,12 @@ public class Player {
 					}
 			}
 		}
+	private void allIN(Dealer dlr){
+		allIn=true;
+		System.out.println("come to player and put the all money to deler"+cash);
+		dlr.addTobetCollctn(cash);
+		cash=0;
+	}
 	
 	private void fold(Dealer dlr) {
 		this.fold=true;

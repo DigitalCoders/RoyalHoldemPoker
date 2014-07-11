@@ -15,6 +15,7 @@ public class SnglPlayGame {
 	
 	public void startGame(){
 		setPlayers();		//create players and set small blind and big blind on first 2
+		players.get(2).setCash(100);
 		InputHelper.getInput("players set");
 		dlr=new Dealer();	//create a dealer and generate cards
 		dlr.shuffleDeck();			//shuffle the cards
@@ -238,20 +239,23 @@ public class SnglPlayGame {
 		int MnyBlncPlyr=0;
 		double hghstBet=0;
 		for (int i = tbl.getPntOfRaise(); i < plyr.size(); i++) {
-			
 				if(round ){
 					break;
 				}
 				start=true;
 			
 			if(true){						
-				System.out.println("come to betting time in 22222   "+tbl.getHighsBet()+'\n');
-				if((plyr.get(i).getBet()==tbl.getHighsBet() && plyr.get(i).getBet()!=0)||plyr.get(i).isFold()){
+				System.out.println("come to betting time in 22222   "+MnyBlncPlyr +'\n');
+				if((plyr.get(i).getBet()==tbl.getHighsBet() && plyr.get(i).getBet()!=0)||plyr.get(i).isFold()||plyr.get(i).isAllIn()){
 					hghstBet=tbl.getHighsBet();
 					if(plyr.get(i).isFold()){
 						System.out.println('\n'+plyr.get(i).getName()+" has fold");
 						System.out.println("================================");
-					}else{
+					}else if (plyr.get(i).isAllIn()) {
+						System.out.println('\n'+plyr.get(i).getName()+" has put all in");
+						System.out.println("================================");
+					}
+					else{
 						System.out.println('\n'+plyr.get(i).getName()+" has put the highst bet");
 					}
 					MnyBlncPlyr++;			//increment if player put highst or fold withowt in low
@@ -259,7 +263,7 @@ public class SnglPlayGame {
 				}else{						//if  not they have to perform action what to do
 					System.out.println(plyr.get(i).getName()+" has not @@put the highst bet");
 					plyr.get(i).actionOfPlayertwo(dlr, tbl,i);		//take action from the player
-					if(tbl.getHighsBet()!=hghstBet){
+					if(tbl.getHighsBet()!=hghstBet||!tbl.isCheck()){
 						MnyBlncPlyr=0;
 					}
 				}
