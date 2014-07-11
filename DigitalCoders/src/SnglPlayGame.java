@@ -10,39 +10,50 @@ public class SnglPlayGame {
 	int blncMnyPlyrs=0;
 	int plyrInGame=0;
 	int foldPlyrs=0;
+	
 	static int pntOfSmlbl; 		//reference to the small blind to the player on arraylist
 	
 	public void startGame(){
 		setPlayers();		//create players and set small blind and big blind on first 2
-		
+		InputHelper.getInput("players set");
 		dlr=new Dealer();	//create a dealer and generate cards
 		dlr.shuffleDeck();			//shuffle the cards
 		Table tbl=new Table();		//create a table
-		setCards( dlr, players);  	//initialaise first 3 cards to table
-		System.out.println("===================== PreFlop Round =====================");		
+		setCards( dlr, players);  	//initialaise 2 crds by to players
+		
+		System.out.println("===================== PreFlop Round =====================");			
 		putBlinds(dlr, tbl); 			//1st time small and big blinds put cash to table 
+		InputHelper.getInput("player 1 and 2 put the blinds");
 		firstRound(players, tbl, dlr);	//after put all players are start betting or fold		
 		
 		showDetail(tbl, dlr, players);
 		System.out.println("===================== Flop Round =====================");
+		InputHelper.getInput("start thr flop round");
 		tbl.SetDeck(dlr.getNextCard());
 		tbl.SetDeck(dlr.getNextCard());
 		tbl.SetDeck(dlr.getNextCard());
+		tbl.showTablCrd();
+		InputHelper.getInput("start betting");
 		resetfrNewRnd(dlr, tbl, players);
 		betting(players, tbl, dlr);		
+		InputHelper.getInput("betting finish");
+		tbl.SetDeck(dlr.getNextCard());    		//4th card
 		showDetail(tbl, dlr, players);
 		
 		System.out.println("===================== Turn Round =====================");
+		InputHelper.getInput("start turn round");
 		resetfrNewRnd(dlr, tbl, players);
 		betting(players, tbl, dlr);		
-		tbl.SetDeck(dlr.getNextCard());
+		tbl.SetDeck(dlr.getNextCard());			//5th card
 		showDetail(tbl, dlr, players);
+		InputHelper.getInput("turn round finish and the cards on table");
+		tbl.showTablCrd();
+		InputHelper.getInput("start the river round");
 		System.out.println("===================== River Round =====================");
 		resetfrNewRnd(dlr, tbl, players);
 		betting(players, tbl, dlr);		
-		tbl.SetDeck(dlr.getNextCard());
+		InputHelper.getInput("river round finish ");
 		showDetail(tbl, dlr, players);
-		
 	}
 	private void resetfrNewRnd(Dealer dlr, Table tbl,List<Player> plyr){
 		dlr.setBgBlind(0);
@@ -116,7 +127,8 @@ public class SnglPlayGame {
 					System.out.println('\n'+"mony balenced players are "+MnyBlncPlyr+'\n');
 				}else{						//if  not they have to perform action what to do
 					System.out.println(plyr.get(i).getName()+" has not @@put the highst bet");
-					plyr.get(i).actionOfPlayer(dlr,tbl);		//take action from the player
+					plyr.get(i).shwCardPlyr();
+					plyr.get(i).actionOfPlayer(dlr,tbl,i);		//take action from the player
 					if(tbl.getHighsBet()!=hghstBet){
 						MnyBlncPlyr=0;
 					}
@@ -131,6 +143,7 @@ public class SnglPlayGame {
 				round=true;
 			}
 		}
+		tbl.setCheck(false);
 	}
 	private void setPlayers() {
 		players=new ArrayList<Player>();
@@ -173,7 +186,7 @@ public class SnglPlayGame {
 					blncMnyPlyrs++;			//increment if player put highst or fold withowt in low
 				}else{						//if  not they have to perform action what to do
 					System.out.println(plr.getName()+" has not @@put the highst bet");
-					plr.actionOfPlayer(dlr,tbl);		//take action from the player
+					plr.actionOfPlayer(dlr,tbl,players.indexOf(plr));		//take action from the player
 				}
 			}if(blncMnyPlyrs==players.size()){
 				allSameBet=true;
@@ -224,14 +237,14 @@ public class SnglPlayGame {
 		boolean round=false;
 		int MnyBlncPlyr=0;
 		double hghstBet=0;
-		for (int i = 0; i < plyr.size(); i++) {
-			if(plyr.get(i).isSmlblnd()){			//start betting after bigblind
-				if(start && round ){
+		for (int i = tbl.getPntOfRaise(); i < plyr.size(); i++) {
+			
+				if(round ){
 					break;
 				}
 				start=true;
-			}
-			if(start){						//if find the bigblind and start the game 
+			
+			if(true){						
 				System.out.println("come to betting time in 22222   "+tbl.getHighsBet()+'\n');
 				if((plyr.get(i).getBet()==tbl.getHighsBet() && plyr.get(i).getBet()!=0)||plyr.get(i).isFold()){
 					hghstBet=tbl.getHighsBet();
@@ -245,7 +258,7 @@ public class SnglPlayGame {
 					System.out.println('\n'+"mony balenced players are "+MnyBlncPlyr+'\n');
 				}else{						//if  not they have to perform action what to do
 					System.out.println(plyr.get(i).getName()+" has not @@put the highst bet");
-					plyr.get(i).actionOfPlayertwo(dlr, tbl);		//take action from the player
+					plyr.get(i).actionOfPlayertwo(dlr, tbl,i);		//take action from the player
 					if(tbl.getHighsBet()!=hghstBet){
 						MnyBlncPlyr=0;
 					}
@@ -260,5 +273,6 @@ public class SnglPlayGame {
 				round=true;
 			}
 		}
+		tbl.setCheck(false);
 	}
 }

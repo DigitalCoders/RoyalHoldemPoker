@@ -7,7 +7,18 @@ public class Table {
 	double highsBet;
 	boolean putBet=false;
 	boolean check=false;
+	int pntOfRaise=0;
 	
+	
+	public int getPntOfRaise() {
+		System.out.println("============================= pont of player="+pntOfRaise);
+		return pntOfRaise;
+	}
+	public void setPntOfRaise(int pntOfRaise) {
+		
+		this.pntOfRaise = pntOfRaise;
+		System.out.println("============================= pont of player="+pntOfRaise);
+	}
 	public boolean isCheck() {
 		return check;
 	}
@@ -31,6 +42,7 @@ public class Table {
 	public Table() {
 		crdOnTbl=new ArrayList<Card>();
 		highsBet=0;
+		pntOfRaise=0;
 		putBet=false;
 		check=false;
 	}

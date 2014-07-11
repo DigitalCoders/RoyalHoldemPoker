@@ -88,7 +88,7 @@ public class Player {
 	public void setRankOfHand(int rankOfHand) {
 		this.rankOfHand = rankOfHand;
 	}
-	public void actionOfPlayer(Dealer dlr,Table tbl){
+	public void actionOfPlayer(Dealer dlr,Table tbl,int index){
 		System.out.println('\n'+"player  "+name);
 		System.out.println("1 for call-put bigblind");
 		System.out.println("2 for raise-put higr than bigblnd");
@@ -99,7 +99,7 @@ public class Player {
 					call(dlr,tbl);
 					break;
 				case 2:
-					raise(dlr,tbl);
+					raise(dlr,tbl,index);
 					break;
 				case 3:
 					fold(dlr);
@@ -110,7 +110,7 @@ public class Player {
 					break;
 				}
 	}
-	public void actionOfPlayertwo(Dealer dlr,Table tbl){
+	public void actionOfPlayertwo(Dealer dlr,Table tbl,int index){
 		System.out.println('\n'+"player  "+name);
 		if(tbl.isCheck()){
 			System.out.println("1 for call-put higher than bet");
@@ -122,7 +122,7 @@ public class Player {
 						call(dlr,tbl);
 						break;
 					case 2:
-						raise(dlr,tbl);
+						raise(dlr,tbl,index);
 						break;
 					case 3:
 						fold(dlr);
@@ -144,6 +144,7 @@ public class Player {
 					case 2:
 						bid(dlr,tbl);
 						tbl.setCheck(true);
+						tbl.setPntOfRaise(index);
 						break;
 					case 3:
 						fold(dlr);
@@ -169,7 +170,8 @@ public class Player {
 		System.out.println(name+"put the big blinds coins as his coins"+balnce);
 		System.out.println(name+" cash in hand now "+cash);		
 	}
-	private void raise(Dealer dlr,Table tbl){
+	private void raise(Dealer dlr,Table tbl,int index){
+		tbl.setPntOfRaise(index);
 		double bgblnd=dlr.getBgBlind();
 		double input=0;
 		while(true){
