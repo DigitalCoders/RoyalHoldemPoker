@@ -3,7 +3,8 @@ import java.util.List;
 
 
 public class Rank {
-
+	List<Card> crds;
+	int cmnSID=24;
 	public int chkRank(List<Card> tblcrds,Card crd1,Card crd2){
 		int rank=0;
 		ArrayList<Card> cardSet=(ArrayList<Card>) tblcrds;	// add all the cards (table cards and players card) to list
