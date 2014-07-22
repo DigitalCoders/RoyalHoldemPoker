@@ -7,4 +7,8 @@ public class AIplayer extends Player{
 		super(name);
 	}
 
+	@Override
+	public void actionOfPlayertwo(Dealer dlr, Table tbl, int index) {
+		
+	}
 }
