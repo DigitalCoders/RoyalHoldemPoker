@@ -41,4 +41,17 @@ public class AIplayer extends Player{
 //		window.getLblBlind().setText("value "+myrnk);
 		return myrnk;
 	}
+	private void raiseAI(Dealer dlr,Table tbl,int index){
+		double bgblnd=dlr.getBgBlind();
+		tbl.setPntOfRaise(index);
+		double input=tbl.getHighsBet()+5;
+		System.out.println("cost of raise"+input);
+		
+//		cash-=(input-bet);
+//		bet=input;
+		tbl.setHighsBet(input);
+		dlr.setBgBlind(input);
+		dlr.addTobetCollctn(input);
+//		window.getLblCash().setText("cash "+cash);
+	}
 }
