@@ -25,26 +25,26 @@ public class SnglPlayGame {
 		putBlinds(dlr, tbl); 			//1st time small and big blinds put cash to table 
 //		InputHelper.getInput("player 1 and 2 put the blinds");
 //		betting(players, tbl, dlr);	//after put all players are start betting or fold		
-//		
+		setcrdstest(players, tbl, dlr);
 //		showDetail(tbl, dlr, players);
 //		System.out.println("===================== Flop Round =====================");
 //		InputHelper.getInput("start thr flop round");
-		tbl.SetDeck(dlr.getNextCard());
-		tbl.SetDeck(dlr.getNextCard());
-		tbl.SetDeck(dlr.getNextCard());
+//		tbl.SetDeck(dlr.getNextCard());
+//		tbl.SetDeck(dlr.getNextCard());
+//		tbl.SetDeck(dlr.getNextCard());
 //		tbl.showTablCrd();
 //		InputHelper.getInput("start betting");
 //		resetfrNewRnd(dlr, tbl, players);
 //		betting(players, tbl, dlr);		
 //		InputHelper.getInput("betting finish");
-		tbl.SetDeck(dlr.getNextCard());    		//4th card
+//		tbl.SetDeck(dlr.getNextCard());    		//4th card
 //		showDetail(tbl, dlr, players);
 //		
 //		System.out.println("===================== Turn Round =====================");
 //		InputHelper.getInput("start turn round");
 //		resetfrNewRnd(dlr, tbl, players);
 //		betting(players, tbl, dlr);		
-		tbl.SetDeck(dlr.getNextCard());			//5th card
+//		tbl.SetDeck(dlr.getNextCard());			//5th card
 //		showDetail(tbl, dlr, players);
 //		InputHelper.getInput("turn round finish and the cards on table");
 //		tbl.showTablCrd();
@@ -285,6 +285,7 @@ public class SnglPlayGame {
 	}
 	private void checkRanks(List<Player> plyr,Table tbl,Dealer dlr){
 		int rank=0;
+		int maxrank=0;
 		Rank rnk=new Rank();
 		for (Player player : plyr) {
 			InputHelper.getInput('\n'+"want to go to next player to check rank");
@@ -294,18 +295,22 @@ public class SnglPlayGame {
 				rank=rnk.chkRank(tbl.getCrdOnTbl(), player);
 				System.out.println("the rank is :::::::::::::::::::"+rank);
 				player.setRankOfHand(rank);
+				if(rank>maxrank){
+					maxrank=rank;
+				}
 			}
 		}
 		for (Player player : plyr) {
 			System.out.println(player.getName());
 			System.out.println("has ran of hand of :"+player.getRankOfHand());
 		}
+		System.out.println("maximum rank is ="+maxrank);
 	}
 private void setcrdstest(List<Player> players2, Table tbl, Dealer dlr2) {
-		tbl.SetDeck(new Card(0, 1));
-		tbl.SetDeck(new Card(1, 1));
-		tbl.SetDeck(new Card(2, 2));
-		tbl.SetDeck(new Card(3, 4));
+		tbl.SetDeck(new Card(0, 0));
+		tbl.SetDeck(new Card(1, 0));
+		tbl.SetDeck(new Card(2, 0));
+		tbl.SetDeck(new Card(3, 0));
 		tbl.SetDeck(new Card(1, 1));
 	}
 }
