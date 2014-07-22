@@ -11,4 +11,14 @@ public class AIplayer extends Player{
 	public void actionOfPlayertwo(Dealer dlr, Table tbl, int index) {
 		
 	}
+	private void bidAI(Dealer dlr, Table tbl,int index) {
+		tbl.setPntOfRaise(index);
+		double input=tbl.getHighsBet()+5;
+		
+//			cash-=input;
+//	bet=input;
+	tbl.setHighsBet(input);
+	dlr.setBgBlind(input);
+	dlr.addTobetCollctn(input);
+	}
 }
